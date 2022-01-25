@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chatroom/src/widgets/auth_form_widget.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +22,21 @@ class _AuthScreenState extends State<AuthScreen> {
   final _auth = FirebaseAuth.instance;
   bool isLoading = false;
 
+  String usertoken = '';
+  getToken() {
+    FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        usertoken = token.toString();
+      });
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getToken();
+  }
+
   void _submitAuthForm(
       String email,
       String password,
@@ -36,7 +52,6 @@ class _AuthScreenState extends State<AuthScreen> {
       });
       if(isLogin){
         credential = await _auth.signInWithEmailAndPassword(email: email, password: password);
-
       }
       else{
         credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -55,8 +70,10 @@ class _AuthScreenState extends State<AuthScreen> {
               'username': username,
               'email': email,
               'image_url': url,
+              'token': usertoken
             });
       }
+
 
     } on PlatformException catch(err){
       setState(() {

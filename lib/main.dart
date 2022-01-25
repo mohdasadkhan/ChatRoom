@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: app_color,
         accentColor: app_color,
+        brightness: Brightness.dark,
         accentColorBrightness: Brightness.dark,
         buttonTheme: ButtonTheme.of(context).copyWith(
           buttonColor: app_color,
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           )
-        )
+        ),
       ),
       // home: AuthScreen()
       home: StreamBuilder(

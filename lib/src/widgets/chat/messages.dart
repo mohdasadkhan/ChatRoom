@@ -9,7 +9,7 @@ class Messages extends StatelessWidget {
     currentUserId = await FirebaseAuth.instance.currentUser!.uid;
   }
   String currentUserId = '';
-
+  List tokenList = [];
   @override
   Widget build(BuildContext context) {
     takeCurrentUserId();
@@ -21,16 +21,16 @@ class Messages extends StatelessWidget {
         }
         final chatDocs = chatSnapshot.data!.docs;
         return ListView.builder(
-          reverse: true,
-          itemCount: chatDocs.length,
-          itemBuilder: (ctx, index) => MessageBubble(
-            message: chatDocs[index]['text'],
-            isMe: currentUserId == chatDocs[index]['userId'],
-            key: ValueKey(chatDocs[index].id),
-            userId: chatDocs[index]['userId'],
-            userName: chatDocs[index]['username'],
-            userImage: chatDocs[index]['userImage'],
-          )
+            reverse: true,
+            itemCount: chatDocs.length,
+            itemBuilder: (ctx, index) => MessageBubble(
+              message: chatDocs[index]['text'],
+              isMe: currentUserId == chatDocs[index]['userId'],
+              key: ValueKey(chatDocs[index].id),
+              userId: chatDocs[index]['userId'],
+              userName: chatDocs[index]['username'],
+              userImage: chatDocs[index]['userImage'],
+            )
         );
       },
     );

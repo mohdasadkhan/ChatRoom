@@ -1,18 +1,18 @@
 import 'package:chatroom/src/const.dart';
 import 'package:chatroom/src/widgets/chat/messages.dart';
 import 'package:chatroom/src/widgets/chat/new_message.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: app_color,
+        backgroundColor: Colors.black,
         title: Text('ChatRoom', style: TextStyle(color: Colors.white),),
         actions: [
           PopupMenuButton(onSelected: (value) {
@@ -38,12 +38,13 @@ class ChatScreen extends StatelessWidget {
 
       body: Container(
         decoration: BoxDecoration(
-          color: Colors.white
+          color: app_color
         ),
         child: Column(
           children: [
             Expanded(child: Messages()),
             NewMessage(),
+
           ],
         ),
       ),
